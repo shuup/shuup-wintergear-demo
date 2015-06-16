@@ -1,0 +1,44 @@
+<button class="dropdown-toggle" data-toggle="dropdown">
+    <i class="fa fa-shopping-cart"></i>
+    <span class="text hidden-xs">{% trans %}Cart{% endtrans %}</span>
+    <span class="numbers-font">({{ request.basket.product_count }})</span>
+</button>
+<div class="dropdown-menu cart" role="dropdown-menu">
+    {% if request.basket.get_lines() %}
+        <table class="table">
+            <colgroup>
+                <col style="min-width: 210px;">
+                <col style="min-width: 90px;">
+            </colgroup>
+            <thead>
+                <tr>
+                    <th>Items</th>
+                    <th class="text-right">Price</th>
+                </tr>
+            </thead>
+            <tfoot>
+                <tr>
+                    <th>
+                        {% trans %}Total{% endtrans %}
+                    </th>
+                    <th class="text-right numbers-font">
+                        {{ request.basket.total_price|home_currency }}
+                    </th>
+                </tr>
+            </tfoot>
+            <tbody>
+                {% for line in request.basket.get_lines() %}
+                    <tr>
+                        <td><span class="numbers-font">{{ line.quantity|number }}</span> &times; <a href="{{ shoop.urls.model_url(line.product) }}">{{ line.text }}</a></td>
+                        <td class="text-right numbers-font">{{ line.total_price|home_currency }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <a href="{{ url("shoop:basket") }}" class="btn btn-lg btn-block btn-primary">
+            {% trans %}View cart{% endtrans %} <i class="fa fa-angle-double-right"></i>
+        </a>
+    {% else %}
+        <span class="text-warning"><i class="fa fa-exclamation-circle"></i> {% trans %}Your shopping cart is empty{% endtrans %}</span>
+    {% endif %}
+</div>

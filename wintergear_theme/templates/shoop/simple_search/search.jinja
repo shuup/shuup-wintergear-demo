@@ -1,0 +1,33 @@
+{% extends "shoop/front/base.jinja" %}
+{% block title %}{% trans %}Search{% endtrans %}{% endblock %}
+{% block content %}
+    <div class="container search-results">
+        <h1 class="page-header">{% trans %}Search{% endtrans %}</h1>
+        <form method="get">
+            <div class="row">
+                <div class="col-sm-6">{{ bs3.field(form.q) }}</div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">{{ bs3.field(form.sort) }}</div>
+            </div>
+            <button type="submit" class="btn btn-primary">
+                <i class="fa fa-search"></i> {% trans %}Search{% endtrans %}
+            </button>
+            <hr>
+        </form>
+        {% if no_results %}
+            <p class="lead">{% trans query=form.cleaned_data.q %}No results found for "<strong>{{ query }}</strong>".{% endtrans %}</p>
+        {% elif products %}
+            <div class="search-result-text">
+                <p class="lead">{% trans %}Search results found for{% endtrans %} "<strong>{{ form.cleaned_data.q }}</strong>"</p>
+            </div>
+            <div class="row">
+                {% for product in products if shoop.product.is_visible(product) %}
+                    <div class="col-sm-4 col-md-3 single-result">
+                        {{ macros.product_box(product, show_description=False, class="product-card box", thumbnail_size=(500,500)) }}
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

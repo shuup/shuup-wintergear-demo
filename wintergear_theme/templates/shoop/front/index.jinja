@@ -1,0 +1,108 @@
+{% extends "shoop/front/base.jinja" %}
+{% block content_title %}{% endblock %}
+{% block carousel %}
+    {% include "shoop/front/includes/_frontpage-carousel.jinja" %}
+{% endblock %}
+
+{% block content %}
+    <section class="frontpage-section white">
+        <div class="container">
+            <h2 class="section-title">{% trans %}New products{% endtrans %}</h2>
+            <div class="product-carousel owl-carousel">
+                {% for product in shoop.general.get_newest_products() if shoop.product.is_visible(product) %}
+                    {{ macros.product_box(product, show_description=False) }}
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <section class="frontpage-section bg-color brand-primary">
+        <div class="container">
+            <div class="icon-row">
+                <div class="column">
+                    <i class="primary-icon fa fa-ship"></i>
+                    <h3>Free shipping all over the world</h3>
+                    <p>Free shipping is available for all WinterGear orders over {{ 75|home_currency }}. WinterGear free shipping is applied automatically at checkout. Find out more about shipping your items with WinterGear</p>
+                </div>
+                <div class="column">
+                    <i class="primary-icon fa fa-credit-card"></i>
+                    <h3>Multiple payment methods</h3>
+                    <p>WinterGear accepts all major payment methods including credit cards, bank transfer, paypal, and more. All your payments are completely secure and backed by our customer service guarantee. Find out more about our accepted payment methods.</p>
+                </div>
+                <div class="column">
+                    <i class="primary-icon fa fa-shield"></i>
+                    <h3>Shopping is secure with us</h3>
+                    <p>We’re committed to your security and buying experience. We do not store any personal information and offer easy returns and shipping guarantees. Find out more about our customer service pledge.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="frontpage-section white text-center">
+        <div class="container">
+            <h2 class="section-title">{% trans %}Newest articles{% endtrans %}</h2>
+            <div class="owl-carousel-three">
+                <a href="/" class="col-inner">
+                    <div class="image">
+                        <img src="{{ STATIC_URL }}img/carousel-1.jpg">
+                    </div>
+                    <div class="text">
+                        <h4>Interview with Freestyler Jack Brown</h4>
+                        <p>{{ "We caught up with rising freestyle star Jack Brown for a quick interview on his new line of ski and snowboard clothes. We discuss improvements in design, the 2015 championship tour, and sponsorships"|truncate(180, true) }}</p>
+                    </div>
+                </a>
+                <a href="/" class="col-inner">
+                    <div class="image">
+                        <img src="{{ STATIC_URL }}img/carousel-2.jpg">
+                    </div>
+                    <div class="text">
+                        <h4>Our Experts Guide to Packing Gear</h4>
+                        <p>{{ "Check out our picks for the essential items you need to enjoy the worst that winter has to offer. Carry too much and you might not complete your journey as you planned. Carry too little and you could risk lack of food and freezing temps"|truncate(180, true) }}</p>
+                    </div>
+                </a>
+                <a href="/" class="col-inner">
+                    <div class="image">
+                        <img src="{{ STATIC_URL }}img/carousel-3.jpg">
+                    </div>
+                    <div class="text">
+                        <h4>Join WinterGear at SnowSlam Festival</h4>
+                        <p>{{ "WinterGear will be setting up shop at SnowSlam Festival this November in Valais, Switzerland. Join us for a day of great bands, great people, and everything ski and snowboard. Join us at our stand for giveaways and free swag"|truncate(180, true) }}</p>
+                    </div>
+                </a>
+                <a href="/" class="col-inner">
+                    <div class="image">
+                        <img src="{{ STATIC_URL }}img/carousel-1.jpg">
+                    </div>
+                    <div class="text">
+                        <h4>Lift Tickets Available Through Us</h4>
+                        <p>{{ "Save time at the mountain by buying your lift ticket in advance through us. We offer tickets to most major skiing destinations in Europe and exclusive WinterGear discounts. Read more to find our latest deals"|truncate(180, true) }}</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section class="frontpage-section gray slim">
+        <div class="container">
+            <div class="clearfix text-center">
+                <h2><i class="fa fa-envelope-o inline-icon"></i>Subscribe to our newsletter!</h2>
+                <p class="text-larger">Hear all the latest news and receive offers by subscribing to our newsletter!</p>
+            </div>
+            <div class="row">
+                <div class="col-sm-8 col-sm-push-2 col-md-6 col-md-push-3">
+                    <hr>
+                    <form>
+                        <div class="form-group">
+                            <label for="subscribe">Enter your e-mail address</label>
+                            <div class="input-group">
+                                <input id="subscribe" type="text" class="form-control">
+                                <span class="input-group-btn"><button class="btn btn-primary">Subscribe!</button></span>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

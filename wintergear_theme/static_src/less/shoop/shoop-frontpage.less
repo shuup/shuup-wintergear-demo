@@ -1,0 +1,48 @@
+.frontpage-section {
+
+    .col-inner {
+        background: @brand-gray-light;
+        overflow: hidden;
+        display: block;
+
+        &:hover, &:focus, &:active {
+            text-decoration: none;
+            .text { color: @brand-primary; }
+            .image img {
+                transform: scale(1.1) rotate(-3deg);
+            }
+        }
+
+        .image {
+            height: 140px;
+            overflow: hidden;
+            border-bottom: 5px solid @brand-primary;
+            img {
+                width: 100%;
+                height: auto;
+                max-height: none;
+                max-width: none;
+                .transition(transform 2s);
+            }
+        }
+
+        .text {
+            padding: 10px 15px 15px 15px;
+            color: @text-color;
+            .transition(color 0.25s);
+            border-bottom: 2px solid darken(@brand-gray-light, 5%);
+        }
+
+    }
+
+    .icon-row {
+        .row;
+        .column {
+            .make-sm-column(4);
+            @media (max-width: @screen-xs-max) {
+                padding-bottom: 40px;
+            }
+        }
+    }
+
+}

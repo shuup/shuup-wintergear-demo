@@ -1,0 +1,3 @@
+[submodule "shoop"]
+	path = shoop
+	url = git@github.com:shoopio/shoop.git

@@ -1,0 +1,117 @@
+{% extends "shoop/front/base.jinja" %}
+
+{% block title %}{{ category.name }}{% endblock %}
+{% block content_title %}{% endblock %}
+
+{% block banner %}
+    <section class="banner-image">
+        <div class="parallax" data-parallax="true" data-speed="0.5" style="background-image: url({{ STATIC_URL }}img/parallax.jpg)"></div>
+        <div class="container">
+            <div class="text-wrapper">
+                <div class="text-block">
+                    <h1 class="section-title">{{ category.name }}</h1>
+                </div>
+            </div>
+        </div>
+        <div class="faded-bg"></div>
+    </section>
+{% endblock %}
+
+{% block breadcrumb %}
+    {# TODO: Remove narrow class when using proper filters #}
+    <div class="container narrow breadcrumb-wrap">
+        <ol class="breadcrumb">
+            <li><a href="/">{% trans %}Home{% endtrans %}</a></li>
+            {% for c in category.get_ancestors(False, False) %}
+                <li><a href="{{ c.get_absolute_url() }}">{{ c.name }}</a></li>
+            {% endfor %}
+            <li class="active">{{ category.name }}</li>
+        </ol>
+    </div>
+{% endblock %}
+
+{% block content %}
+    {# TODO: Remove narrow class when using proper filters #}
+    <div class="container narrow">
+        <div class="row">
+            {# TODO: Remove full-width class when using proper filters #}
+            <div class="product-list full-width">
+                <div class="header">
+                    <form role="form" class="form-inline" method="get" action="" id="sorter">
+                        <div class="form-group selectpicker">
+                            {{ form.sort|safe }}
+                        </div>
+                    </form>
+                    <div class="toggle-view">
+                        <input id="view_toggler" type="checkbox">
+                        <label for="view_toggler" data-toggle="tooltip" title="Grid / list view">
+                            <i class="grid fa fa-th"></i>
+                            <i class="list fa fa-th-list"></i>
+                        </label>
+                    </div>
+                </div>
+                <hr>
+                <div class="products grid row">
+                    {% for product in products if shoop.product.is_visible(product) %}
+                        <div class="single-product">
+                            {{ macros.product_box(product, show_description=True) }}
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    {% set best_selling_products = shoop.general.get_best_selling_products() %}
+    {% if best_selling_products %}
+        <hr>
+        <section>
+            <div class="container">
+                <h2 class="section-title">{% trans %}Best selling products{% endtrans %}</h2>
+                <div class="product-carousel owl-carousel">
+                    {% for product in best_selling_products if shoop.product.is_visible(product) %}
+                        {{ macros.product_box(product) }}
+                    {% endfor %}
+                </div>
+        </section>
+    {% endif %}
+
+{% endblock %}
+
+{% block extrajs %}
+    <script>
+
+        $(function() {
+            $("#sorter :input").change(function() {
+                $("#sorter").submit();
+            });
+        });
+
+        $(function() {
+
+            $(document).ready(function() {
+
+                function drawParallax() {
+                    requestAnimationFrame(drawParallax);
+                    parallaxScrollEvent();
+                }
+                drawParallax();
+
+            });
+
+            function parallaxScrollEvent() {
+
+                viewportTopPosition = $(window).scrollTop();
+
+                $('[data-parallax="true"]').each(function() {
+                    parallaxDistance = viewportTopPosition * $(this).attr('data-speed');
+                    $(this).css('transform','translate3d(0, ' + '-' + parallaxDistance +'px, 0)');
+                });
+
+            }
+
+        }());
+
+    </script>
+{% endblock %}

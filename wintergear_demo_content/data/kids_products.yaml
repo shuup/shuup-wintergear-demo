@@ -1,0 +1,196 @@
+CWRBSBN:
+    category_identifier: clothes
+    image: winter_hat_2.jpg
+    price: 14.50
+    name:
+        en: Cotton and Wool Red/Black Striped Beanie (Nepal)
+    description:
+        en: |
+            This handcrafted wool and cotton beanie is lined with fleece to keep it
+            soft and warm. The hat also comes with a single pom giving it an
+            easy-going look and feel. 
+
+            * Style: Beanie
+            * Lined with fleece
+            * A single pom
+            * Materials: 50-percent cotton/50-percent wool
+ATKWCS:
+    category_identifier: clothes
+    image: wool_jacket_1.jpg
+    price: 89.60
+    name:
+        en: American Toddler Knit Winter Crew Sweater
+    description:
+        en: |
+            Keep your little one warm with this knit sweater from American Apparel.
+            A pull over closure and long-sleeve design highlights this sweater.
+            Banded at the wrists, neck and waist, for added durability. 
+
+            * Pullover
+            * Size 6 (years) is approximately 16 3/4" (42.5cm) in total length
+            * Materials: Knit Wear (70-percent rayon / 30-percent nylon) construction
+            * Dry Clean
+HCMSB:
+    category_identifier: clothes
+    image: winter_hat_3.jpg
+    price: 22.70
+    name:
+        en: Hadis Casual Multi Striped Beanie
+    description:
+        en: |
+            This beanie is full of warm winter hues that will turn any basic outfit
+            into the perfect casual look while you are staying warm through the
+            winter. A casual look that can be worn to multiple occasions, time to
+            add some color and accessorize in this knitted beanie.
+
+            * Color options: Green/White, Brown/Red
+            * Style: Beanie
+            * Material: 100-percent acrylic
+SRBFDYWJ:
+    category_identifier: clothes
+    image: winter_jacket_children_1.jpg
+    price: 109.80
+    name:
+        en: Sledman Red/Blue Fleece-lined Drawstring-hem Youth Winter Jacket
+    description:
+        en: |
+            Keep the kids warm with this jacket from Sledman. Made of 300D nylon
+            with PU coating this will be a must have this winter. The jacket also
+            has a fleece lining and drawstring hem. The reflective piping will make
+            them seen in the fading sunlight of winter days. The full button down
+            storm flap will keep them warm and the taped seams will keep them dry. 
+
+            * Color options: Red/Blue
+            * Drawstring hem
+            * Taped seams
+            * Fleece lining
+            * Reflective piping
+FDNAIGM:
+    category_identifier: clothes
+    image: winter_gloves.jpg
+    price: 50.00
+    name:
+        en: Full-grain Deerskin and Nylon Adjustable Insulated Gauntlet Mitts
+    description:
+        en: |
+            Be prepared for the cold while snowboarding with these deerskin leather
+            mittens from Gauntlet that features a contemporary red and black design.
+            These insulated gloves have a tactile nylon shell and an adjustable
+            wrist strap for custom comfort.
+
+            * Gauntlet mittens have a full-grain deerskin leather palm
+            * Gloves have a Thinsulate lite loft insulation
+            * Snowboard gloves have a Tactel nylon shell
+            * Washable
+            * Wrist strap adjustment
+NTBSBBJ:
+    category_identifier: clothes
+    image: winter_jacket_children_2.jpg
+    price: 75.00
+    name:
+        en: Northern Toddler Boys S-lite Blue Bubble Jacket
+    description:
+        en: |
+            Northern’s bubble jacket will keep him warm and toasty while he's out
+            chasing pow, building a snowman or waiting for the school bus. Digital
+            print side panels add a cool look to this jacket, while a contrast
+            fleece lined hood adds additional warmth. 
+
+            * Fit: Kids
+            * Color Options: Blue
+            * Pockets: Two (2) front pockets
+            * Collar: Spread
+            * Lining: 100-percent polyester
+            * Closure: Front zipper
+LHAEBH:
+    category_identifier: clothes
+    image: winter_hat_4.jpg
+    price: 29.90
+    name:
+        en: Leisureton Hand-crocheted Acrylic Earflapped Beanie Hat
+    description:
+        en: |
+            Warm and cozy, this Leisureton hand-crocheted hat is made with
+            100-percent acrylic yarn. Featuring a soft open-crochet body detailed
+            with pom-poms at the top and on the earflaps, this beanie is perfect for
+            any occasion or as a gift. 
+
+            * Color options: Blue
+            * Style: Hand-crocheted beanie
+            * Material: 100-percent acrylic yarn
+            * Pom-pom top, earflap embellishments
+HWMMN:
+    category_identifier: clothes
+    image: winter_gloves_2.jpg
+    price: 9.90
+    name:
+        en: Hand-knitted Winter Multicolored Mittens (Nepal)
+    description:
+        en: |
+            These fun hand-knit woolen mittens are made to keep your hands warm and
+            looking great on those cool-weather days. Fleece-lined for a soft
+            texture on your skin, these cute gloves were handcrafted by artisans in
+            Nepal. 
+
+            * Color options: Blue
+            * Size: One size
+            * Fabric: 100-percent wool
+            * Lining: Fleece lining
+            * Care instruction: Hand wash in cold water
+CY1MWS:
+    category_identifier: clothes
+    image: wool_jacket_2.jpg
+    price: 49.90
+    name:
+        en: Colly Youth's 1/4-zip Mock-neck Wool Sweater
+    description:
+        en: |
+            Look suave this fall or winter with this versatile mock-neck sweater,
+            featuring a handsome 1/4 zip construction. Available in two color
+            schemes, this pullover sweater is crafted with luxuriously soft
+            cashmere. 
+
+            * Fit: Youth
+            * Sleeves: Long sleeve
+            * Neckline: Mock
+            * Collar: Zip mock
+            * Lining: Unlined
+            * Closure: Pullover
+LZAB:
+    category_identifier: clothes
+    image: winter_shoes.jpg
+    price: 86.90
+    name:
+        en: Leather Zip-Trim Ankle Boots
+    description:
+        en: |
+            These shiny leather ankle boot features outside zip-up closure, a
+            1.5 inch heel and slightly raised platform for support. With a almond
+            toe shape and fashionable snug fit at the ankle.
+
+            * Color options: Brown, Black
+            * Height: Ankle
+            * Style: Outside-zip
+            * Material: Leather
+            * Toe shape: Almond
+            * Width: Medium
+            * Lining: Leather
+            * Sole: Rubber
+            * Footbed: Slightly padded
+BMBP:
+    category_identifier: clothes
+    image: winter_hat_5.jpg
+    price: 9.90
+    name:
+        en: Brown Mountain Beanie Patterned
+    description:
+        en: |
+            This winter keep your head and ears warm under this cute knit winter
+            hat. This item features a stylish pattern and the fleece lining is sure
+            to keep you warm during any winter!
+
+            * Color options: Brown
+            * Materials:100-percent wool
+            * Care instructions: Hand wash in cold water
+            * Size: One size fits most youths
+            * Lining: Fleece

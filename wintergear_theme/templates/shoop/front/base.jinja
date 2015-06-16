@@ -1,0 +1,74 @@
+{%- import "shoop/front/macros.jinja" as macros with context -%}
+<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE }}">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wintergear &ndash; {% block title %}The Coolest Deals for the Coolest Season!{% endblock %}</title>
+    {% block extrameta %}{% endblock %}
+    <link rel="icon" type="image/x-icon" href="{{ static("img/favicon.ico") }}">
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Arimo:400,700|Raleway:400,300,500,700,900">
+    <link rel="stylesheet" type="text/css" href="{{ static("css/style.css") }}">
+</head>
+<body>
+
+    {% if messages %}
+        <div class="message-wrapper">
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }} alert-dismissible" role="alert">
+                    <div class="container">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        {{ message }}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    <a href="#" id="scroll_top" class="scroll-top-btn" data-toggle="tooltip" data-placement="left" title="Scroll to top">
+        <i class="fa fa-angle-up"></i>
+    </a>
+
+    <div class="page-loader-wrap">
+         <div class="ajax-loader">
+            <span></span>
+            <span></span>
+            <span></span>
+            <p>Loading</p>
+        </div>
+    </div>
+
+    {% block cover_message %}{% endblock %}
+
+    {% include "shoop/front/includes/_navigation.jinja" %}
+
+    <div class="content-wrap">
+
+        {% block banner %}{% endblock %}
+
+        {% block carousel %}{% endblock %}
+
+        {% block breadcrumb %}{% endblock %}
+
+        <main>
+            {% block before_content_title %}{% endblock %}
+            {% if self.content_title() %}
+                <div class="container">
+                    <div class="page-header">
+                        <h1>{% block content_title %}{% endblock %}</h1>
+                    </div>
+                </div>
+            {% endif %}
+            <div class="page-content">
+                {% block content %}{% endblock %}
+            </div>
+        </main>
+
+        {% include "shoop/front/includes/_footer.jinja" %}
+
+    </div>
+
+    <script src="{{ STATIC_URL }}js/all.js"></script>
+    {% block extrajs %}{% endblock %}
+</body>
+</html>

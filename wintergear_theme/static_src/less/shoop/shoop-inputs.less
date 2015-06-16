@@ -1,0 +1,160 @@
+.custom-checkbox {
+
+    margin-bottom: 10px;
+
+    input[type="checkbox"] {
+        display: none;
+    }
+
+    input[type="checkbox"] + label {
+        position: relative;
+        cursor: pointer;
+        font-weight: normal;
+        margin: 0;
+        // Disable text select on label
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+
+        &:hover {
+            &:before {
+                .transparent-bg(@brand-primary, 0.15);
+                .transparent-border(@brand-primary, 0.7);
+            }
+        }
+
+        &:before {
+            content: "";
+            display: inline-block;
+            background: @brand-gray-light;
+            width: 17px;
+            height: 17px;
+            border: 1px solid darken(@border-color, 10%);
+            vertical-align: top;
+            margin-right: 7px;
+            border-radius: 2px;
+            .transition(all 0.1s);
+        }
+
+        &:after {
+            opacity: 0;
+            content: "\f00c";
+            font-family: FontAwesome;
+            display: block;
+            color: #fff;
+            position: absolute;
+            left: 2px;
+            top: -1px;
+            .scale(0.4);
+            .transition(all 0.25s cubic-bezier(0.75,0.1,0.1,0.5))
+        }
+
+    }
+
+    input[type="checkbox"]:checked + label {
+
+        &:before {
+            background: @brand-primary;
+            border-color: @brand-primary;
+        }
+
+        &:after {
+            opacity: 1;
+            .scale(1);
+        }
+    }
+
+}
+
+.custom-radio {
+    margin-bottom: 10px;
+
+    input[type="radio"] {
+        display: none;
+    }
+
+    input[type="radio"] + label {
+        position: relative;
+        cursor: pointer;
+        font-weight: normal;
+        margin: 0;
+        // Disable text select on label
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+
+        &:hover {
+            &:before {
+                .transparent-bg(@brand-primary, 0.15);
+                .transparent-border(@brand-primary, 0.7);
+            }
+        }
+
+        &:before {
+            content: "";
+            display: inline-block;
+            background: @brand-gray-light;
+            width: 17px;
+            height: 17px;
+            border: 1px solid darken(@border-color, 10%);
+            vertical-align: top;
+            margin-right: 7px;
+            border-radius: 50%;
+            .transition(all 0.1s);
+        }
+
+        &:after {
+            opacity: 0;
+            content: "";
+            display: block;
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+            background-color: @brand-primary;
+            position: absolute;
+            left: 4px;
+            top: 4px;
+            .scale(0.4);
+            .transition(all 0.25s cubic-bezier(0.75,0.1,0.1,0.5))
+        }
+
+    }
+
+    input[type="radio"]:checked + label {
+        &:before {
+            border-color: @brand-primary;
+            background: #fff;
+        }
+        &:after {
+            opacity: 1;
+            .scale(1);
+        }
+    }
+
+}
+
+.form-group {
+    &.required-field,
+    &.required {
+        // add an asterisk on required field labels
+        .control-label {
+            position: relative;
+            &:after {
+                content: "\2731"; // asterisk
+                font-size: 0.7rem;
+                vertical-align: top;
+                display: inline-block;
+                color: @brand-danger;
+                margin-left: 0.2rem;
+                margin-right: -0.7rem;
+                position: relative;
+            }
+        }
+    }
+}

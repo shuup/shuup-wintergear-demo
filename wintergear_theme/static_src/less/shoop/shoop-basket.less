@@ -1,0 +1,92 @@
+.basket {
+    margin-bottom: 70px;
+
+    .basket-overview, .total {
+        font-size: 1.6rem;
+
+        .overview-line {
+            margin: 10px 0px;
+        }
+        .value {
+            margin-left: 5px;
+            font-size: 2.4rem;
+            font-weight: bold;
+        }
+    }
+
+    .form-group.required {
+        label:after {
+            content: "\2217";
+            display: inline-block;
+            vertical-align: top;
+            margin-top: -4px;
+            padding-left: 2px;
+        }
+    }
+
+    .panel {
+        margin-bottom: 50px;
+    }
+
+    .panel-heading {
+        h3 {
+            margin: 0;
+            padding: 5px 0px;
+            @media (min-width: @screen-sm-min) {
+                padding: 10px 30px;
+            }
+        }
+    }
+
+    .panel-body {
+        background: @brand-gray-light;
+        @media (min-width: @screen-sm-min) {
+            padding: 40px;
+        }
+
+        hr { border-color: #ddd; }
+
+        .custom-checkbox {
+            margin-bottom: 20px;
+
+            label:before { background: #fff; }
+        }
+    }
+
+    .order-for-company {
+        margin-top: 25px;
+        margin-bottom: 15px;
+    }
+
+    .buttons {
+        .btn-cancel {
+            margin-top: 30px;
+            display: inline-block;
+            @media (min-width: @screen-sm-min) {
+                float: right;
+                margin-top: 15px;
+            }
+            &:hover, &:focus {
+                color: @brand-danger;
+            }
+        }
+        .btn-submit {
+            margin-top: 10px;
+            padding: 10px 25px;
+        }
+    }
+
+    .bootstrap-select {
+        position: relative;
+        .bs-searchbox {
+            padding: 5px 15px;
+            margin-bottom: 10px;
+            border-bottom: 1px solid @border-color;
+            input {
+                height: 30px;
+                margin-bottom: 5px;
+            }
+        }
+    }
+
+}

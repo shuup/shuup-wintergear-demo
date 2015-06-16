@@ -1,0 +1,115 @@
+.product-main {
+    margin-bottom: 50px;
+
+    .product-image {
+        .make-sm-column(5);
+
+        .item a {
+            &:hover {
+                .inspect-icon {
+                    visibility: visible;
+                    opacity: 1;
+                    left: 15px;
+                }
+            }
+        }
+        .inspect-icon {
+            opacity: 0;
+            visibility: hidden;
+            .transition(all 0.3s);
+            position: absolute;
+            top: 15px;
+            left: -15px;
+            height: 4rem;
+            width: 4rem;
+            text-align: center;
+            z-index: 5;
+            cursor: pointer;
+            border-radius: 50%;
+            i {
+                font-size: 4rem;
+                color: @brand-primary;
+                line-height: 3.5rem;
+            }
+        }
+    }
+
+    .product-info {
+        .make-sm-column(7);
+        h1 {
+            margin: 0px;
+        }
+        label {
+            display: block;
+            width: 100%;
+            font-size: 0.9em;
+        }
+        .sku {
+            p {
+                font-size: 0.9em;
+                color: #aaa;
+                font-weight: 500;
+            }
+        }
+        .price {
+            margin-bottom: 15px;
+            h3 {
+                color: @brand-primary;
+                font-size: 2.5em;
+                font-weight: bold;
+                .numbers-font;
+                small {
+                    .font-primary;
+                    font-weight: normal;
+                    font-size: 1.5rem;
+                }
+            }
+        }
+        .in-stock {
+            i {
+                margin-right: 7px;
+            }
+            span {
+                margin-left: 5px;
+                font-weight: bold;
+                .numbers-font;
+            }
+            .available {
+                i { color: @brand-success; }
+            }
+            .sold-out {
+                i { color: @brand-danger; }
+            }
+        }
+        .form-group {
+            .btn-group {
+                margin: 0;
+            }
+        }
+
+        .boxes {
+            list-style: none;
+            padding: 0;
+            li {
+                background: @brand-gray-light;
+                padding: 15px;
+                display: inline-table;
+                margin: 0px 5px 5px 0px;
+                i, span {
+                    display: table-cell;
+                    vertical-align: middle;
+                }
+                i {
+                    font-size: 2em;
+                    padding-right: 15px;
+                    color: @gray-light;
+                }
+            }
+        }
+    }
+
+}
+
+.product-tabs {
+    margin-bottom: 75px;
+}

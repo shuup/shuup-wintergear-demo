@@ -1,0 +1,134 @@
+<nav class="navbar navbar-fixed-top site-nav" role="navigation">
+
+    <div class="support-nav">
+        <div class="container">
+            <button class="toggle-main-nav collapsed" data-toggle="collapse" data-target="#shoop-navbar-collapse" aria-expanded="false" aria-controls="shoop-navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bars"></span>
+            </button>
+            <div class="logo">
+                <a href="/" data-toggle="tooltip" data-placement="bottom" title="{{ request.shop }} {% trans %}Home{% endtrans %}">
+                    <img src="{{ STATIC_URL }}img/logo-mobile.png" class="mobile" alt="{{ request.shop }} Logo">
+                    <img src="{{ STATIC_URL }}img/logo.png" class="desktop" alt="{{ request.shop }} Logo">
+                </a>
+            </div>
+            <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown">
+                    <div class="hidden-xs">
+                        <form method="get" action="{{ url("shoop:product_search") }}" class="search-form" role="search">
+                            <div class="form-group">
+                                <input type="search" name="q" class="form-control" placeholder="{% trans %}Search{% endtrans %}" required>
+                                <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="visible-xs">
+                        <button class="dropdown-toggle" data-toggle="dropdown">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        <div class="dropdown-menu" role="menu">
+                            <form method="get" action="{{ url("shoop:product_search") }}" class="search-form" role="search">
+                                <div class="form-group">
+                                    <input type="search" name="q" class="form-control" placeholder="{% trans %}Search{% endtrans %}" required>
+                                    <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </li>
+                {% if user.is_authenticated() %}
+                    <li class="dropdown">
+                        <button class="dropdown-toggle" data-toggle="dropdown">
+                            <i class="fa fa-user"></i>
+                            <span class="text hidden-xs">
+                                {% if user.first_name %}
+                                    {{ user.get_full_name()|truncate(12, true) }}
+                                {% else %}
+                                    {{ (""~user)|truncate(12, true) }}
+                                {% endif %}
+                            </span>
+                        </button>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="{{ url("shoop:customer_edit") }}"><i class="fa fa-user"></i> {% trans %}User account{% endtrans %}</a></li>
+                            {% if user.is_superuser %}
+                                <li><a href="/sa/"><i class="fa fa-dashboard"></i> {% trans %}Admin Dashboard{% endtrans %}</a></li>
+                            {% endif %}
+                            {% if shoop.urls.has_url("shoop:personal-orders") %}
+                                <li>
+                                    <a href="{{ url("shoop:personal-orders") }}">
+                                        <i class="fa fa-list-alt"></i>
+                                        {% trans %}My orders{% endtrans %}
+                                    </a>
+                                </li>
+                            {% endif %}
+                            <li><a href="{{ url("shoop:logout") }}"><i class="fa fa-sign-out"></i> {% trans %}Log out{% endtrans %}</a></li>
+                        </ul>
+                    </li>
+                {% else %}
+                    <li class="dropdown">
+                        <button class="dropdown-toggle" data-toggle="dropdown">
+                            <i class="fa fa-user"></i><span class="text hidden-xs">{% trans %}Log in{% endtrans %}</span>
+                        </button>
+                        <div class="dropdown-menu login" role="dropdown-menu">
+                            <form role="form" method="post" action="{{ url("shoop:login") }}">
+                                {% csrf_token %}
+                                <input type="hidden" name="next" value="{{ request.path }}">
+                                <div class="form-group">
+                                    <label for="">{% trans %}Username{% endtrans %}</label>
+                                    <input type="text" name="username" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label for="">{% trans %}Password{% endtrans %}</label>
+                                    <input type="password" name="password" class="form-control">
+                                </div>
+                                <button type="submit" class="btn btn-lg btn-primary btn-block">
+                                    <i class="fa fa-sign-in"></i>{% trans %}Log in{% endtrans %}
+                                </button>
+                            </form>
+                            <a href="{{ url("shoop:recover_password") }}">
+                                <i class="fa fa-question"></i> {% trans %}Forgot password?{% endtrans %}
+                            </a>
+                            <a href="{{ url("shoop:registration_register") }}">
+                                <i class="fa fa-pencil"></i> {% trans %}Need to register?{% endtrans %}
+                            </a>
+                        </div>
+                    </li>
+                {% endif %}
+                <li class="dropdown" id="navigation-cart">
+                    {% include 'shoop/front/basket/partials/_navigation_cart.jinja' %}
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="main-nav">
+        <div class="container">
+            <div class="collapse navbar-collapse" id="shoop-navbar-collapse">
+                <ul class="nav navbar-nav">
+                    {% for c in shoop.general.get_root_categories() recursive %}
+                        {% set children = c.get_children() %}
+                        <li>
+                            {% if children %}
+                                <a href="{{ url("shoop:category", pk=c.pk, slug=c.slug) }}" class="dropdown-toggle" data-toggle="dropdown">{{ c }} <span class="caret"></span></a>
+                                <ul class="dropdown-menu">{{ loop(children) }}</ul>
+                            {% else %}
+                                <a href="{{ url("shoop:category", pk=c.pk, slug=c.slug) }}">{{ c }}</a>
+                            {% endif %}
+                        </li>
+                    {% endfor %}
+                </ul>
+                {# Print all pages created by simple_cms that are visible
+                {% set cms_pages = shoop.simple_cms.get_visible_pages() %}
+                {% if cms_pages %}
+                <ul class="nav navbar-nav navbar-right">
+                    {% for page in cms_pages %}
+                        <li><a href="{{ url("shoop:cms_page", url=page.url) }}">{{ page }}</a></li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+                #}
+            </div>
+        </div>
+    </div>
+
+</nav>

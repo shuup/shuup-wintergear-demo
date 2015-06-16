@@ -1,0 +1,293 @@
+{% extends "shoop/front/base.jinja" %}
+
+{% block extrameta %}
+    <meta property="og:site_name" content="{{ request.shop }}">
+    <meta property="og:type" content="product">
+    <meta property="og:url" content="{{ shoop.urls.model_url(product, absolute=True) }}">
+    <meta property="og:title" content="{{ product.name }}">
+    {% if primary_image %}
+        <meta property="og:image" content="{{ request.build_absolute_uri(primary_image.url) }}">
+    {% endif %}
+{% endblock %}
+
+{% block title %}{{ product.name }}{% endblock %}
+{% block content_title %}{% endblock %}
+
+{% block breadcrumb %}
+    <div class="container breadcrumb-wrap">
+        <ol class="breadcrumb">
+            <li><a href="/">{% trans %}Home{% endtrans %}</a></li>
+            {% set category = shop_product.primary_category %}
+            {% if category %}
+                {% for c in category.get_ancestors(include_self=True) if c.is_visible(request.customer) %}
+                    <li><a href="{{ url("shoop:category", pk=c.pk, slug=c.slug) }}">{{ c.name }}</a></li>
+                {% endfor %}
+            {% endif %}
+            <li class="active">{{ product.name }}</li>
+        </ol>
+    </div>
+{% endblock %}
+
+{% block cover_message %}
+    <div class="cover-wrap">
+        <div class="text-wrap">
+            <div class="ready">
+                <i class="fa fa-check"></i>
+                <p>{% trans %}Product added to cart{% endtrans %}</p>
+            </div>
+            <div class="load">
+                <i class="fa fa-spinner fa-spin"></i>
+            </div>
+            <div class="error-msg">
+                <i class="fa fa-warning"></i>
+                <p>{% trans %}There was an error adding the product to the basket{% endtrans %}</p>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}
+
+    <div class="container">
+        <div class="row product-main">
+
+            <div class="product-image">
+                {% include "shoop/front/product/_product_image.jinja" %}
+            </div>
+
+            <div class="product-info">
+                <h1>{{ product.name }}</h1>
+                <div class="sku">
+                    <p class="text-muted"><small>{{ product.sku }}</small></p>
+                </div>
+                <div class="summary">
+                    {{ product.description|striptags|truncate(140)|safe }}
+                </div>
+                <div class="price">
+                    {# TODO: (TAX) Check following line (gets taxful price of product)  #}
+                    {% set price = product.get_price(request) %}
+                    <h3>
+                        {{ price|home_currency }}
+                        {% if price.includes_tax %}<small>(incl. tax)</small>{% else %}<small>(excl. tax)</small>{% endif %}
+                        <small>/ {{ product.sales_unit.short_name }}</small>
+                    </h3>
+                </div>
+                <hr>
+                {# TODO: Check the stock balance and then show things underneath according to the value
+                <div class="in-stock">
+                    <p class="available"><i class="fa fa-check"></i>{% trans %}In stock:{% endtrans %}<span>50+</span></p>
+                    {#<p class="sold-out"><i class="fa fa-ban"></i>{% trans %}Sold out{% endtrans %}</p>
+                </div>
+                <hr>
+                #}
+                {# TODO: Add product attributes to be chosen like size
+                <div class="form-group">
+                    <label for="product_size">{% trans %}Select size{% endtrans %}</label>
+                    <select name="size" id="product_size" class="selectpicker form-control btn-boxed">
+                        <option value="xs">XS</option>
+                        <option value="s">S</option>
+                        <option value="m">M</option>
+                        <option value="l">L</option>
+                        <option value="xl">XL</option>
+                        <option value="xxl">XXL</option>
+                    </select>
+                </div>
+                #}
+                {% include "shoop/front/product/_detail_order_section.jinja" with context %}
+                <hr>
+                <ul class="boxes">
+                    <li class="delivery" data-toggle="tooltip" title="Free delivery within 3-6 working days" data-placement="bottom">
+                        <i class="fa fa-truck"></i><span>{% trans %}Free Delivery{% endtrans %}</span>
+                    </li>
+                    <li class="return" data-toggle="tooltip" title="If you are not satisfied to the product, you may return it for a refund within 30 days of receiving the order" data-placement="bottom">
+                        <i class="fa fa-reply"></i><span>{% trans %}30-Day Money Back Guarantee{% endtrans %}</span>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+
+        <div class="product-tabs" role="tabpanel">
+            <ul class="nav nav-tabs" role="tablist">
+                <li role="presentation" class="active"><a href="#tab1" aria-controls="tab1" role="tab" data-toggle="tab"><i class="fa fa-align-left"></i>{% trans %}Description{% endtrans %}</a></li>
+                <li role="presentation"><a href="#tab2" aria-controls="tab2" role="tab" data-toggle="tab"><i class="fa fa-tags"></i>{% trans %}Attributes{% endtrans %}</a></li>
+            </ul>
+
+            <div class="tab-content">
+                <div role="tabpanel" class="product-description tab-pane fade in active" id="tab1">
+                    {% if product.description %}
+                        {{ product.description|markdown|safe }}
+                    {% else %}
+                        {% trans %}No product description available{% endtrans %}
+                    {% endif %}
+                </div>
+                <div role="tabpanel" class="product-attributes tab-pane fade" id="tab2">
+                    {% include "shoop/front/product/_detail_attributes_section.jinja" %}
+                </div>
+            </div>
+        </div>
+
+        {% if package_children %}
+            <hr>
+            <h2 class="section-title">{% trans %}Includes these products{% endtrans %}</h2>
+            <div class="product-carousel owl-carousel">
+                {% for child in package_children %}
+                    {{ macros.product_box(child, show_description=False) }}
+                {% endfor %}
+            </div>
+
+        {% elif package_parents %}
+            <hr>
+            <h2 class="section-title">{% trans %}Is also available in{% endtrans %}</h2>
+            <div class="product-carousel owl-carousel">
+                {% for parent in package_parents %}
+                    {{ macros.product_box(parent, show_description=False) }}
+                {% endfor %}
+            </div>
+        {% endif %}
+
+    </div>
+
+    {% set related_products = shoop.product.get_products_bought_with(product) %}
+    {% if related_products %}
+        <hr>
+        <div class="container">
+            <h2 class="section-title">{% trans %}Others purchased also these{% endtrans %}</h2>
+            <div class="row">
+                {% for related_product in related_products %}
+                    <div class="col-md-3">
+                        {{ macros.product_box(related_product) }}
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    {% endif %}
+
+
+{% endblock %}
+
+{% block extrajs %}
+    <script>
+        $(function() {
+            var product_quantity = {{ product.buy_minimum|json }};
+            var product_price = {{ product.get_price(request, quantity=product.buy_minimum).taxful_price|json }};
+
+            {#
+                This is JavaScript version of bankers rounding I found with Google.
+                Modified it so that it always rounds into two decimal places.
+
+                Original version found from:
+                http://stackoverflow.com/questions/3108986/gaussian-bankers-rounding-in-javascript
+            #}
+            var even_round = function(num) {
+                var n = +(num * 100.0).toFixed(8);
+                var i = Math.floor(n), f = n - i;
+                var e = 1e-8;
+                var r = (f > 0.5 - e && f < 0.5 + e) ? ((i % 2 == 0) ? i : i + 1) : Math.round(n);
+                var result = (r / 100.0).toString().replace(/\./, ',');
+
+                if (/,\d$/.test(result)) {
+                    result += '0';
+                }
+
+                return result;
+            };
+
+            var update_price = function() {
+                var new_quantity = parseFloat($("#product-quantity").val());
+
+                if (product_quantity == new_quantity) {
+                    return;
+                }
+
+                product_quantity = new_quantity;
+                $("#product-price-placeholder").text(new_quantity > 1 ? new_quantity * product_price : product_price);
+            };
+
+            update_price();
+            $("#product-quantity").on("change keyup", update_price);
+
+            // Enable lightbox for products with multiple images. Uses arrows to
+            // navigate through images.
+            var selector_multiple = "a[data-imagelightbox='image-multiple']";
+            var instance_multiple = $(selector_multiple).imageLightbox({
+                "onStart": function() {
+                    overlayOn();
+                    closeButtonOn(instance_multiple);
+                    arrowsOn(instance_multiple, selector_multiple);
+                },
+                "onEnd": function() {
+                    overlayOff();
+                    closeButtonOff();
+                    arrowsOff();
+                },
+                "onLoadStart": function() {
+                    activityIndicatorOn();
+                },
+                "onLoadEnd": function() {
+                    $(".imagelightbox-arrow").css("display", "block");
+                    activityIndicatorOff();
+                }
+            });
+
+            // Enable lightbox for products with only one image.
+            var selector = "a[data-imagelightbox='image']";
+            var instance = $(selector).imageLightbox({
+                "onStart": function() {
+                    overlayOn();
+                    closeButtonOn(instance);
+                },
+                "onEnd": function() {
+                    overlayOff();
+                    closeButtonOff();
+                },
+                "onLoadStart": function() {
+                    activityIndicatorOn();
+                },
+                "onLoadEnd": function() {
+                    $(".imagelightbox-arrow").css("display", "block");
+                    activityIndicatorOff();
+                }
+            });
+
+            $("form.add-to-basket").on("submit", function(e) {
+                var cover = $(".cover-wrap");
+                e.preventDefault();
+                cover.addClass("in loading"); // Show fullscreen modal and a loader icon
+                $.ajax({
+                    url: $(this).attr("action"),
+                    method: "POST",
+                    data: $(this).serializeArray(),
+                    success: function(response) {
+                        //Update the shopping cart and possible other partials
+                        for(var partial in response.partials){
+                            $(partial).html(response.partials[partial]);
+                        }
+                        setTimeout(function() {
+                            // Hide the loader and show the message
+                            cover.removeClass("loading").addClass("loaded");
+                            setTimeout(function() {
+                                // Hide the message
+                                cover.removeClass("loaded");
+                                setTimeout(function() {
+                                    // Hide the modal
+                                    cover.removeClass("in");
+                                }, 250);
+                            }, 1500);
+                        }, 500);
+                    },
+                    error: function() {
+                        setTimeout(function() {
+                            // Hide the loader and change to error message
+                            cover.removeClass("loading").addClass('error');
+                            setTimeout(function() {
+                                // Hide the error message and the modal
+                                cover.removeClass("error in");
+                            }, 1750);
+                        }, 500);
+                    }
+                });
+            });
+        });
+    </script>
+{% endblock %}

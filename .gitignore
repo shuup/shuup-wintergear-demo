@@ -1,0 +1,11 @@
+*.pyc
+*.sqlite3
+/wintergear_theme/static/css
+/wintergear_theme/static/js
+/venv
+bower_components
+node_modules
+var
+npm-debug.log
+local_settings.py
+.idea

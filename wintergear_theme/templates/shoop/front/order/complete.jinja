@@ -1,0 +1,12 @@
+{% extends "shoop/front/base.jinja" %}
+
+{% block title %}{% trans %}Thank you for your order!{% endtrans %}{% endblock %}
+{% block content_title %}{% trans name=order.billing_address.name %}Thank you for your order!{% endtrans %}{% endblock %}
+
+{% block content %}
+    <div class="container order-confirmation">
+        <p><i class="fa fa-check text-success"></i> {% trans %}Your order has been received. You can see the details of your order below.{% endtrans %}</p>
+        <hr>
+        {{ macros.print_order_detail(order, True) }}
+    </div>
+{% endblock %}

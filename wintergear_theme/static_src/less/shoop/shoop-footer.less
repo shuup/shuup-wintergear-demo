@@ -1,0 +1,61 @@
+footer {
+    color: #fff;
+
+    ul {
+        padding: 0;
+        list-style: none;
+    }
+
+    .footer-top {
+        padding: 30px 0px;
+        background: darken(@brand-darken, 10%);
+
+        a, a:visited, a:hover, a:focus {
+            color: #fff;
+            font-size: 0.9em;
+        }
+
+        h4.underline {
+            border-bottom: 2px solid rgba(255,255,255,0.3);
+            padding-bottom: 5px;
+        }
+    }
+
+    .footer-bottom {
+        padding: 15px 0px;
+        background: darken(@brand-darken, 15%);
+        border-top: 3px solid darken(@brand-darken, 16%);
+
+        ul {
+            margin: 0;
+            li {
+                display: inline-block;
+                a {
+                    color: rgba(255,255,255,0.75);
+                    font-size: 1.6em;
+                    &:hover { color: #fff; }
+                }
+            }
+        }
+
+        .social-media {
+            .make-sm-column(6);
+            li { margin-right: 7px; }
+        }
+
+        .payment-methods {
+            .make-sm-column(6);
+            margin-top: 10px;
+            li {
+                margin-right: 7px;
+            }
+
+            @media (min-width: @screen-sm-min) {
+                margin-top: 0px;
+                text-align: right;
+                li { margin-left: 7px; }
+            }
+        }
+
+    }
+}

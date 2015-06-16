@@ -1,0 +1,40 @@
+.search-results {
+    margin-top: 30px;
+    margin-bottom: 100px;
+
+    h1 { margin-top: 10px; }
+
+    button {
+        margin: 10px 0px;
+    }
+
+    .single-result {
+        margin-bottom: 50px;
+        @media (min-width: @screen-md-min) {
+            &:nth-child(4n+1) {
+                clear: both;
+            }
+        }
+        @media (min-width: @screen-sm-min) and (max-width: @screen-sm-max) {
+            &:nth-child(3n+1) {
+                clear: both;
+            }
+        }
+        @media (min-width: 480px) and (max-width: @screen-xs-max) {
+            width: 50%;
+            float: left;
+            padding: 0px 15px;
+            &:nth-child(2n+1) {
+                clear: both;
+            }
+        }
+    }
+
+    img {
+        max-width: 100%;
+    }
+
+    .search-result-text {
+        margin-bottom: 15px;
+    }
+}

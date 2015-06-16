@@ -1,0 +1,108 @@
+.product-block {
+    display: block;
+    outline: 0;
+    transition: background 0.15s, color 0.15s;
+
+    &:hover {
+        background: @brand-primary;
+        color: #fff;
+        text-decoration: none;
+
+        .product-image {
+
+            img {
+                border-color: @brand-primary;
+            }
+
+            @media (min-width: @screen-sm-min) {
+                .overlay {
+                    opacity: 1;
+                    i { .scale(1); }
+                }
+            }
+
+        }
+
+        .caption {
+            color: #fff;
+            .price {
+                color: #fff;
+            }
+        }
+
+    }
+
+    .product-image {
+        position: relative;
+        overflow: hidden;
+        margin-bottom: 15px;
+
+        img {
+            border: 1px solid @border-color;
+        }
+
+        .overlay {
+            position: absolute;
+            color: #fff;
+            text-align: center;
+            left: 1px;
+            bottom: 1px;
+            right: 1px;
+            top: 1px;
+            opacity: 0;
+            z-index: 2;
+            .transition(all 0.15s);
+            background: rgba(255,255,255,0.5);
+            i {
+                .transition(all 0.15s);
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                height: 2em;
+                width: 2em;
+                font-size: 2em;
+                margin-left: -1em;
+                margin-top: -1em;
+                color: #fff;
+                line-height: 2em;
+                border-radius: 50%;
+                .transparent-bg(@brand-primary, 0.85);
+                .scale(0.35);
+            }
+        }
+
+        .product-labels {
+            position: absolute;
+            top: 1px;
+            left: 1px;
+            z-index: 3;
+            span {
+                float: left;
+                display: block;
+                margin-bottom: 7px;
+                font-size: 0.8em;
+                border-radius: 0;
+                font-weight: normal;
+                text-transform: uppercase;
+                padding: 0.5em 0.75em;
+            }
+        }
+    }
+
+    .caption {
+        padding-bottom: 10px;
+        text-align: center;
+        color: @text-color;
+
+        p { margin: 0; }
+
+        .price {
+            font-size: 1.2em;
+            color: @gray-light;
+            font-weight: bold;
+            .numbers-font;
+        }
+
+    }
+
+}
