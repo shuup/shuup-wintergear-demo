@@ -148,6 +148,7 @@ SHOOP_BASKET_COMMAND_DISPATCHER_SPEC = (
     "shoop_demo.basket_command_dispatcher:WintergearBasketCommandDispatcher")
 SHOOP_BASKET_VIEW_SPEC = "shoop_demo.views.basket:WintergearBasketView"
 
+DEMO_CREDENTIALS = "admin / admin"
 
 def configure(setup):
     setup.commit(globals())
