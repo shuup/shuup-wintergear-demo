@@ -85,6 +85,11 @@
                                     <i class="fa fa-sign-in"></i>{% trans %}Log in{% endtrans %}
                                 </button>
                             </form>
+                            {% if get_demo_credentials() %}
+                            <div class="alert alert-default">
+                                You can use <b>{{ get_demo_credentials() }}</b> to log in.
+                            </div>
+                            {% endif %}
                             <a href="{{ url("shoop:recover_password") }}">
                                 <i class="fa fa-question"></i> {% trans %}Forgot password?{% endtrans %}
                             </a>
