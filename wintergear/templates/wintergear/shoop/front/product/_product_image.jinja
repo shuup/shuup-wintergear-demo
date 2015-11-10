@@ -1,0 +1,36 @@
+<div id="product_{{ product.id }}" class="product-carousel carousel fade" data-ride="carousel" data-interval="false">
+    <div class="carousel-inner">
+        {% for product_image in images %}
+            <div class="item{% if product_image == primary_image %} active{% endif %}">
+                {% if loop|count > 1 %}
+                    <a data-imagelightbox="image-multiple" href="{{ product_image.url }}" rel="gallery">
+                        <img src="{{ product_image|thumbnail(size=(750, 750), crop="smart", upscale=True) }}" alt="{{ product.name }}">
+                        <div class="inspect-icon" data-toggle="tooltip" title="Click for a full-sized image" data-placement="right">
+                            <i class="fa fa-search-plus"></i>
+                        </div>
+                    </a>
+                {% else %}
+                    <a data-imagelightbox="image" href="{{ product_image.url }}" rel="gallery">
+                        <img src="{{ product_image|thumbnail(size=(750, 750), crop="smart", upscale=True) }}" alt="{{ product.name }}">
+                        <div class="inspect-icon" data-toggle="tooltip" title="Click for a full-sized image" data-placement="right">
+                            <i class="fa fa-search-plus"></i>
+                        </div>
+                    </a>
+                {% endif %}
+            </div>
+        {% else %}
+            <div class="item active">
+                <img class="img-responsive no-image" alt="{{ product.name }}" src="{{ STATIC_URL }}wintergear/img/no_image.png">
+            </div>
+        {% endfor %}
+    </div>
+</div>
+<div class="carousel-thumbnails owl-carousel thumbnails clearfix">
+    {% for product_image in images %}
+        {% if loop|count > 1 %}
+            <a href="#product_{{ product.id }}" class="thumb" data-slide-to="{{ loop.index0 }}">
+                <img src="{{ product_image|thumbnail(size=(200, 200), crop="smart", upscale=True)}}" alt="{{ product.name }}">
+            </a>
+        {% endif %}
+    {% endfor %}
+</div>

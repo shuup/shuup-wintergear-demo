@@ -1,0 +1,10 @@
+<div class="basket-overview">
+    <div class="overview-line">
+        <span class="text-muted">{% trans %}Total items{% endtrans %}: </span>
+        <span class="value">{{ basket.product_count }}</span>
+    </div>
+    <div class="overview-line">
+        <span class="text-muted">{% trans %}Total price{% endtrans %}: </span>
+        <span class="value">{{ basket.taxful_total_price|money }}</span>
+    </div>
+</div>

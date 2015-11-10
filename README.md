@@ -40,6 +40,7 @@ For Bash-based shells, this should do:
 ```bash
 pip install -r requirements.txt
 python manage.py wintergear_import_demo
-npm run build
+(cd wintergear && npm run build)
+cd ..
 (cd shoop && npm run build)
 ```

@@ -1,0 +1,120 @@
+{%- import "shoop/front/macros.jinja" as macros with context -%}
+
+{% if orderable %}
+    <form role="form" method="post" action="" id="checkout_form">
+        {% csrf_token %}
+
+        {# Set some nice shortcuts #}
+        {%- set sf = form.shipping -%}
+        {%- set bf = form.billing -%}
+        {%- set of = form.order -%}
+
+        {# Render the hidden fields so we don't need to worry about them later #}
+        {% for field in sf.hidden_fields() %}{{ field|safe }}{% endfor %}
+        {% for field in bf.hidden_fields() %}{{ field|safe }}{% endfor %}
+        {% for field in of.hidden_fields() %}{{ field|safe }}{% endfor %}
+
+        {% if errors %}
+            <div class="alert alert-danger">
+                <p><strong>{% trans %}Errors{% endtrans %}</strong></p>
+                <ul>
+                    {% for error in errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+
+        {# Billing addresses #}
+        <div id="step-1">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h2 class="panel-title">1. {% trans %}Billing address{% endtrans %}</h2>
+                </div>
+                <div class="panel-body collapse in">
+                    <fieldset>
+                        <div id="billing" class="form-horizontal">
+                            {% for field in bf.visible_fields() %}
+                                {{ macros.render_order_field(field) }}
+                            {% endfor %}
+                            <div class="row">
+                                <div class="order-for-company col-sm-10 col-sm-push-2">
+                                    <h4>{% trans %}Ordering for a company?{% endtrans %}</h4>
+                                    <p>{% trans %}Please fill out these fields if you are ordering for a company.{% endtrans %}</p>
+                                </div>
+                            </div>
+                            {{ macros.render_order_field(form.order.company_name) }}
+                            {{ macros.render_order_field(form.order.vat_code) }}
+                        </div>
+                    </fieldset>
+                </div>
+            </div>
+        </div>
+        <hr>
+        {# Shipping addresses #}
+        <div id="step-2">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h2 class="panel-title">2. {% trans %}Shipping address{% endtrans %}</h2>
+                </div>
+                <div class="panel-body collapse in">
+                    <div class="custom-checkbox">
+                        <input type="checkbox" name="same_as_billing" id="same_as_billing" value="1"{% if request.POST.get("same_as_billing", true) %} checked{% endif %}>
+                        <label for="same_as_billing">{% trans %}Ship to my billing address{% endtrans %}</label>
+                    </div>
+                    <hr>
+                    <fieldset>
+                        <div id="shipping" class="form-horizontal">
+                            {% for field in sf.visible_fields() %}
+                                {{ macros.render_order_field(field) }}
+                            {% endfor %}
+                        </div>
+                    </fieldset>
+                </div>
+            </div>
+        </div>
+        <hr>
+        {# Other information #}
+        <div id="step-3">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h2 class="panel-title">3. {% trans %}Other information{% endtrans %}</h2>
+                </div>
+                <div class="panel-body collapse in">
+                    <fieldset class="form-horizontal">
+                        {{ macros.render_order_field(of.shipping_method) }}
+                        {{ macros.render_order_field(of.payment_method) }}
+                        <div id="shipping-options-container">
+                            {{ shipping_method_ui_html|default("")|safe }}
+                        </div>
+                        {{ macros.render_order_field(of.comment) }}
+                    </fieldset>
+                </div>
+            </div>
+        </div>
+
+        <hr>
+
+        <div class="total">
+            <div class="overview-line">
+                <span class="text-muted">{% trans %}Total price{% endtrans %}: </span>
+                <span class="value">{{ basket.taxful_total_price|money }}</span>
+            </div>
+        </div>
+
+        <hr>
+
+        {{ macros.render_order_field(of.accept_terms) }}
+
+        <div class="row buttons">
+            <div class="col-sm-6">
+                <button type="submit" class="btn btn-primary btn-lg btn-submit">
+                    <i class="fa fa-check"></i> {% trans %}Place the order{% endtrans %}
+                </button>
+            </div>
+            <div class="col-sm-6">
+                <a href="{{ url("shoop:basket") }}" class="text-muted btn-cancel"><i class="fa fa-undo"></i> {% trans %}Continue shopping{% endtrans %}</a>
+            </div>
+        </div>
+    </form>
+{% endif %}

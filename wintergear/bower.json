@@ -1,0 +1,26 @@
+{
+  "name": "wintergear-theme",
+  "version": "1.0.0",
+  "homepage": "-",
+  "authors": [
+    "Juha Kujala <juha.kujala@anders.fi>"
+  ],
+  "description": "Shoop Wintergear Theme",
+  "license": "-",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "~2.1.4",
+    "owl.carousel": "~2.0.0-beta.3",
+    "bootstrap-select": "~1.7.5",
+    "jquery-easing": "*",
+    "jquery-touchswipe": "~1.6.12",
+    "bootstrap": "~3.3.5",
+    "font-awesome": "~4.4.0"
+  }
+}
