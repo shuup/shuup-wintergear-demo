@@ -4,7 +4,6 @@
 #
 # This source code is licensed under the AGPLv3 license found in the
 # LICENSE file in the root directory of this source tree.
-from shoop.addons import add_enabled_addons
 import os
 
 BASE_DIR = os.path.realpath(
@@ -18,8 +17,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "var", "media")
 STATIC_ROOT = os.path.join(BASE_DIR, "var", "static")
 MEDIA_URL = "/media/"
 
-SHOOP_ENABLED_ADDONS_FILE = os.path.join(BASE_DIR, "var", "enabled_addons")
-INSTALLED_APPS = add_enabled_addons(SHOOP_ENABLED_ADDONS_FILE, (
+INSTALLED_APPS = (
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -33,7 +31,6 @@ INSTALLED_APPS = add_enabled_addons(SHOOP_ENABLED_ADDONS_FILE, (
     'wintergear',
     'wintergear_demo_content',
     # shoop
-    'shoop.addons',
     'shoop.admin',
     'shoop.core',
     'shoop.default_tax',
@@ -57,7 +54,7 @@ INSTALLED_APPS = add_enabled_addons(SHOOP_ENABLED_ADDONS_FILE, (
     'django_jinja',
     'filer',
     'easy_thumbnails',
-))
+)
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -150,7 +147,10 @@ SHOOP_PAYMENT_MODULE_IMPLEMENTATIONS = {
 
 SHOOP_BASKET_VIEW_SPEC = "shoop_demo.views.basket:WintergearBasketView"
 
+SHOOP_PRICING_MODULE = "discount_pricing"
+
 DEMO_CREDENTIALS = "admin / admin"
+
 
 def configure(setup):
     setup.commit(globals())

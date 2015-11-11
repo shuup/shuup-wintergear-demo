@@ -1,8 +1,6 @@
 export NODE_ENV=production
 pip install -r requirements.txt
-npm run build
+(cd wintergear && npm run build)
+(cd shoop && npm run build)
 django-admin migrate --noinput
-pushd shoop
-npm run build
-popd
 django-admin collectstatic --noinput
