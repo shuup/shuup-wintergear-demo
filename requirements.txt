@@ -1,3 +1,4 @@
 -e ./shoop
 PyYAML==3.11
+beautifulsoup4==4.4.1
 django-registration-redux==1.2

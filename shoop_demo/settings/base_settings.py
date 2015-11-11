@@ -26,34 +26,37 @@ INSTALLED_APPS = add_enabled_addons(SHOOP_ENABLED_ADDONS_FILE, (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    ####
+    # wintergear
     'shoop_demo',
-    'wintergear_theme',
+    'shoop.themes.default_theme',
+    'shoop.themes.classic_gray',
+    'wintergear',
     'wintergear_demo_content',
-    ####
-    'django_jinja',
-    'filer',
-    'easy_thumbnails',
+    # shoop
+    'shoop.addons',
+    'shoop.admin',
     'shoop.core',
-    'shoop.simple_pricing',
-    'shoop.simple_supplier',
     'shoop.default_tax',
     'shoop.front',
-    'shoop.front.apps.registration',
     'shoop.front.apps.auth',
     'shoop.front.apps.customer_information',
     'shoop.front.apps.personal_order_history',
+    'shoop.front.apps.registration',
     'shoop.front.apps.simple_order_notification',
     'shoop.front.apps.simple_search',
-    'shoop.admin',
-    'shoop.addons',
-    'shoop.testing',
-    'bootstrap3',
     'shoop.notify',
     'shoop.simple_cms',
-    'shoop.stripe',
-
+    'shoop.simple_pricing',
+    'shoop.simple_supplier',
+    'shoop.testing',
+    'shoop.xtheme',
+    'shoop.discount_pricing',
+    # external
+    'bootstrap3',
     'registration',
+    'django_jinja',
+    'filer',
+    'easy_thumbnails',
 ))
 
 MIDDLEWARE_CLASSES = (
@@ -124,6 +127,7 @@ TEMPLATES = [
             "match_extension": ".jinja",
             "context_processors": TEMPLATE_CONTEXT_PROCESSORS,
             "newstyle_gettext": True,
+            "environment": "shoop.xtheme.engine.XthemeEnvironment",
         },
         "NAME": "jinja2",
     },
@@ -144,8 +148,6 @@ SHOOP_PAYMENT_MODULE_IMPLEMENTATIONS = {
     "pseudo": "shoop.testing.pseudo_payment.PseudoPaymentMethodModule",
 }
 
-SHOOP_BASKET_COMMAND_DISPATCHER_SPEC = (
-    "shoop_demo.basket_command_dispatcher:WintergearBasketCommandDispatcher")
 SHOOP_BASKET_VIEW_SPEC = "shoop_demo.views.basket:WintergearBasketView"
 
 DEMO_CREDENTIALS = "admin / admin"

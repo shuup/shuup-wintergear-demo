@@ -171,6 +171,44 @@ CYR1IHH:
                 entire game
             * Dual density floating chin cup delivers comfort and dryness
             * Carbon steel wires offer durability, protection
+
+CYR1IHH-S-0:
+    image: hockey_helmet.jpg
+    price: 120.50
+    name:
+        en: CLM Youth Resistance 1000 Ice Hockey Helmet - S (with cage)
+
+CYR1IHH-M-0:
+    image: hockey_helmet.jpg
+    price: 120.50
+    name:
+        en: CLM Youth Resistance 1000 Ice Hockey Helmet - M (with cage)
+
+CYR1IHH-L-0:
+    image: hockey_helmet.jpg
+    price: 120.50
+    name:
+        en: CLM Youth Resistance 1000 Ice Hockey Helmet - L (with cage)
+
+CYR1IHH-S-1:
+    image: hockey_helmet.jpg
+    price: 99.50
+    name:
+        en: CLM Youth Resistance 1000 Ice Hockey Helmet - S (without cage)
+
+CYR1IHH-M-1:
+    image: hockey_helmet.jpg
+    price: 99.50
+    discount_price: 74.99
+    name:
+        en: CLM Youth Resistance 1000 Ice Hockey Helmet - M (without cage)
+
+CYR1IHH-L-1:
+    image: hockey_helmet.jpg
+    price: 99.50
+    name:
+        en: CLM Youth Resistance 1000 Ice Hockey Helmet - L (without cage)
+
 WJS7IHG:
     category_identifier: accessories
     image: hockey_gloves.jpg
@@ -307,3 +345,21 @@ JCTMPSNS:
             * Neckline: Turtle
             * Lining: No lining
             * Lightweight
+
+JCTMPSNS-S:
+    image: wool_jacket_4.jpg
+    price: 29.00
+    name:
+        en: Journey Collection Two-tone Moose Print Scoop Neck Sweater - S
+
+JCTMPSNS-M:
+    image: wool_jacket_4.jpg
+    price: 49.00
+    name:
+        en: Journey Collection Two-tone Moose Print Scoop Neck Sweater - M
+
+JCTMPSNS-L:
+    image: wool_jacket_4.jpg
+    price: 99.00
+    name:
+        en: Journey Collection Two-tone Moose Print Scoop Neck Sweater - L

@@ -13,13 +13,13 @@ from shoop.xtheme.theme import Theme
 
 
 class WintergearTheme(Theme):
-    identifier = "shoop.themes.wintergear"
+    identifier = "wintergear"
     name = "Shoop Wintergear Demo Theme"
     author = "Juha Kujala"
     template_dir = "wintergear/"
 
     def get_view(self, view_name):
-        import shoop.themes.wintergear.views as views
+        import wintergear.views as views
         return getattr(views, view_name, None)
 
     def _format_cms_links(self, **query_kwargs):
@@ -34,12 +34,12 @@ class WintergearTheme(Theme):
 
 
 class WintergearThemeAppConfig(AppConfig):
-    name = "shoop.themes.wintergear"
+    name = "wintergear"
     verbose_name = WintergearTheme.name
-    label = "shoop.themes.wintergear"
+    label = "wintergear"
     provides = {
-        "xtheme": "shoop.themes.wintergear:WintergearTheme"
+        "xtheme": "wintergear:WintergearTheme"
     }
 
 
-default_app_config = "shoop.themes.wintergear.WintergearThemeAppConfig"
+default_app_config = "wintergear.WintergearThemeAppConfig"

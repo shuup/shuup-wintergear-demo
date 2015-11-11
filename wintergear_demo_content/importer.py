@@ -14,8 +14,8 @@ from shoop.core.models import (
     Product, ProductType, ShopProduct,
     ProductMedia, ProductMediaKind,
 )
+from shoop.discount_pricing.models import DiscountedProductPrice
 from shoop.simple_cms.models import Page
-from shoop.simple_pricing.models import SimpleProductPrice
 from shoop.testing.factories import get_default_supplier
 from shoop.utils.filer import filer_image_from_data
 from shoop.utils.numbers import parse_decimal_string
@@ -119,8 +119,12 @@ class ProductImporter(object):
         product.sales_unit = self.sales_unit
         product.full_clean()
         product.save()
-        shop_product = product.get_shop_instance(self.shop) or ShopProduct(product=product, shop=self.shop)
-        shop_product.save()
+        try:
+            shop_product = product.get_shop_instance(self.shop)
+        except ShopProduct.DoesNotExist:
+            price = parse_decimal_string(data.get("price", "9.99"))
+            shop_product = ShopProduct.objects.create(product=product, shop=self.shop, default_price_value=price)
+
         shop_product.suppliers.add(self.supplier)
         for limiter_name in ("limit_shipping_methods", "limit_payment_methods"):
             limiter_val = data.get(limiter_name, ())
@@ -145,11 +149,9 @@ class ProductImporter(object):
         if category_identifier:
             self._attach_category(product, shop_product, category_identifier)
 
-        price = parse_decimal_string(data.get("price", "59.99"))
-        spp, _ = SimpleProductPrice.objects.get_or_create(product=product, shop=None, group=None)
-        spp.price = price
-        spp.includes_tax = False
-        spp.save()
+        if data.get("discount_price"):
+            discount_price = parse_decimal_string(data.get("discount_price", "9.99"))
+            DiscountedProductPrice.objects.create(product=product, shop=self.shop, price_value=discount_price)
 
         shop_product.save()
         product.save()
