@@ -73,8 +73,13 @@
                             <form role="form" method="post" action="{{ url("shoop:login") }}">
                                 {% csrf_token %}
                                 <input type="hidden" name="next" value="{{ request.path }}">
-                                {% if get_demo_credentials() %}
-                                    <p><i class="fa fa-info-circle text-info"></i> {% trans %}You can use{% endtrans %} <b>{{ get_demo_credentials() }}</b> {% trans %}to log in.{% endtrans %}</p>
+                                {% set demo_creds = get_demo_credentials() %}
+                                {% if demo_creds %}
+                                    <p>
+                                        <i class="fa fa-info-circle text-info"></i>
+                                        {{ _("You can use <b>%(demo_credentials)s</b> to log in.",
+                                             demo_credentials=demo_creds) }}
+                                    </p>
                                 {% endif %}
                                 <div class="form-group">
                                     <label for="">{% trans %}Username{% endtrans %}</label>

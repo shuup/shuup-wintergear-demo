@@ -12,6 +12,4 @@ from django_jinja.library import global_function
 
 @global_function()
 def get_demo_credentials():
-    #return settings.DEMO_CREDENTIALS
-    # TODO: Move these to proper place
-    return "admin / admin"
+    return settings.DEMO_CREDENTIALS

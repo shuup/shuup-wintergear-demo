@@ -19,9 +19,11 @@
     </div>
     <div class="row">
         <div class="col-sm-8 col-sm-push-2 col-md-6 col-md-push-3">
-            {% if get_demo_credentials() %}
+            {% set demo_creds = get_demo_credentials() %}
+            {% if demo_creds %}
                 <div class="alert alert-success">
-                    {% trans %}You can use <b>{{ get_demo_credentials() }}</b> to log in.{% endtrans %}
+                    {{ _("You can use <b>%(demo_credentials)s</b> to log in.",
+                         demo_credentials=demo_creds) }}
                 </div>
             {% endif %}
             <div class="well">
