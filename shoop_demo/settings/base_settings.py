@@ -147,7 +147,10 @@ SHOOP_PAYMENT_MODULE_IMPLEMENTATIONS = {
 
 SHOOP_BASKET_VIEW_SPEC = "shoop_demo.views.basket:WintergearBasketView"
 
+SHOOP_PRICING_MODULE = "discount_pricing"
+
 DEMO_CREDENTIALS = "admin / admin"
+
 
 def configure(setup):
     setup.commit(globals())
