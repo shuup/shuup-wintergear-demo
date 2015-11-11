@@ -1,0 +1,198 @@
+{% extends "shoop/front/base.jinja" %}
+
+{% if product.is_variation_parent()  %}
+    {% set priceinfo = product.get_cheapest_child_price_info(request) %}
+{% else %}
+    {% set priceinfo = product.get_price_info(request) %}
+{% endif %}
+
+{% block extrameta %}
+    <meta property="og:site_name" content="{{ request.shop }}">
+    <meta property="og:type" content="product">
+    <meta property="og:url" content="{{ shoop.urls.model_url(product, absolute=True) }}">
+    <meta property="og:title" content="{{ product.name }}">
+    {% if primary_image %}
+        <meta property="og:image" content="{{ request.build_absolute_uri(primary_image.url) }}">
+    {% endif %}
+{% endblock %}
+
+{% block title %}{{ product.name }}{% endblock %}
+{% block content_title %}{% endblock %}
+
+{% block breadcrumb %}
+    <div class="container breadcrumb-wrap">
+        <ol class="breadcrumb">
+            <li><a href="/">{% trans %}Home{% endtrans %}</a></li>
+            {% set category = shop_product.primary_category %}
+            {% if category %}
+                {% for c in category.get_ancestors(include_self=True) if c.is_visible(customer=request.customer) %}
+                    <li><a href="{{ shoop.urls.model_url(c) }}">{{ c.name }}</a></li>
+                {% endfor %}
+            {% endif %}
+            <li class="active">{{ product.name }}</li>
+        </ol>
+    </div>
+{% endblock %}
+
+{% block content %}
+
+    <div class="container">
+        <div class="row product-main">
+
+            <div class="product-image">
+                {% include "shoop/front/product/_product_image.jinja" %}
+            </div>
+
+            <div class="product-info">
+                <h1>{{ product.name }}</h1>
+                <div class="sku">
+                    <p class="text-muted"><small>{{ product.sku }}</small></p>
+                </div>
+                <div class="summary">
+                    {{ product.description|striptags|truncate(140)|safe }}
+                </div>
+                <div class="price">
+                    <h3>{{ macros.render_product_price(product, priceinfo) }}</h3>
+                </div>
+                {% if priceinfo.is_discounted %}
+                    <div class="discount">
+                        <span class="label label-danger">
+                            {% set discount_percent = priceinfo.discount_rate|percent %}
+                            {{- _("Save %(discount_percent)s", discount_percent=discount_percent) -}}
+                        </span>
+                    </div>
+                {% endif %}
+                <hr>
+                {# TODO: Check the stock balance and then show things underneath according to the value
+                <div class="in-stock">
+                    <p class="available"><i class="fa fa-check"></i>{% trans %}In stock:{% endtrans %}<span>50+</span></p>
+                    <p class="sold-out"><i class="fa fa-ban"></i>{% trans %}Sold out{% endtrans %}</p>
+                </div>
+                <hr>
+                #}
+                <div id="product-price-section">
+                    {% include "shoop/front/product/_detail_order_section.jinja" with context %}
+                </div>
+                <hr>
+                <ul class="boxes">
+                    <li class="delivery" data-toggle="tooltip" title="Free delivery within 3-6 working days" data-placement="bottom">
+                        <i class="fa fa-truck"></i><span>{% trans %}Free Delivery{% endtrans %}</span>
+                    </li>
+                    <li class="return" data-toggle="tooltip" title="If you are not satisfied to the product, you may return it for a refund within 30 days of receiving the order" data-placement="bottom">
+                        <i class="fa fa-reply"></i><span>{% trans %}30-Day Money Back Guarantee{% endtrans %}</span>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+
+        <div class="product-tabs" role="tabpanel">
+            <ul class="nav nav-tabs" role="tablist">
+                <li role="presentation" class="active"><a href="#tab1" aria-controls="tab1" role="tab" data-toggle="tab"><i class="fa fa-align-left"></i>{% trans %}Description{% endtrans %}</a></li>
+                <li role="presentation"><a href="#tab2" aria-controls="tab2" role="tab" data-toggle="tab"><i class="fa fa-file-text-o"></i>{% trans %}Details{% endtrans %}</a></li>
+                {% if shoop.product.get_visible_attributes(product) %}
+                    <li role="presentation"><a href="#tab3" aria-controls="tab3" role="tab" data-toggle="tab"><i class="fa fa-tags"></i>{% trans %}Attributes{% endtrans %}</a></li>
+                {% endif %}
+            </ul>
+
+            <div class="tab-content">
+                <div role="tabpanel" class="product-description tab-pane fade in active" id="tab1">
+                    {% if product.description %}
+                        {{ product.description|markdown|safe }}
+                    {% else %}
+                        {% trans %}No product description available.{% endtrans %}
+                    {% endif %}
+                </div>
+                <div role="tabpanel" class="product-attributes tab-pane fade" id="tab2">
+                    {% include "shoop/front/product/_detail_details_section.jinja" %}
+                </div>
+                {% if shoop.product.get_visible_attributes(product) %}
+                    <div role="tabpanel" class="product-attributes tab-pane fade" id="tab3">
+                        {% include "shoop/front/product/_detail_attributes_section.jinja" %}
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+
+        {% if package_children %}
+            <hr>
+            <h2 class="section-title">{% trans %}Includes these products{% endtrans %}</h2>
+            <div class="product-carousel owl-carousel five">
+                {% for child in package_children %}
+                    {{ macros.product_box(child, show_description=False) }}
+                {% endfor %}
+            </div>
+        {% elif package_parents %}
+            <hr>
+            <h2 class="section-title">{% trans %}Is also available in{% endtrans %}</h2>
+            <div class="product-carousel owl-carousel five">
+                {% for parent in package_parents %}
+                    {{ macros.product_box(parent, show_description=False) }}
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        {{ macros.render_cross_sell_products(
+            product, relation_type="related", title=_("Related products")
+        ) }}
+
+        {{ macros.render_cross_sell_products(
+            product, relation_type="recommended", title=_("We recommend these products")
+        ) }}
+
+        {{ macros.render_cross_sell_products(
+            product, relation_type="computed", title=_("Users who bought this product also bought")
+        ) }}
+
+    </div>
+
+{% endblock %}
+
+{% block extrajs %}
+    <script>
+        $(function() {
+            // Enable lightbox for products with multiple images. Uses arrows to
+            // navigate through images.
+            var selector_multiple = "a[data-imagelightbox='image-multiple']";
+            var instance_multiple = $(selector_multiple).imageLightbox({
+                "onStart": function() {
+                    overlayOn();
+                    closeButtonOn(instance_multiple);
+                    arrowsOn(instance_multiple, selector_multiple);
+                },
+                "onEnd": function() {
+                    overlayOff();
+                    closeButtonOff();
+                    arrowsOff();
+                },
+                "onLoadStart": function() {
+                    activityIndicatorOn();
+                },
+                "onLoadEnd": function() {
+                    $(".imagelightbox-arrow").css("display", "block");
+                    activityIndicatorOff();
+                }
+            });
+
+            // Enable lightbox for products with only one image.
+            var selector = "a[data-imagelightbox='image']";
+            var instance = $(selector).imageLightbox({
+                "onStart": function() {
+                    overlayOn();
+                    closeButtonOn(instance);
+                },
+                "onEnd": function() {
+                    overlayOff();
+                    closeButtonOff();
+                },
+                "onLoadStart": function() {
+                    activityIndicatorOn();
+                },
+                "onLoadEnd": function() {
+                    $(".imagelightbox-arrow").css("display", "block");
+                    activityIndicatorOff();
+                }
+            });
+        });
+    </script>
+{% endblock %}

@@ -1,0 +1,252 @@
+@font-primary: 'Raleway', sans-serif;
+@font-numbers: 'Raleway', sans-serif;
+
+html {
+    font-size: 62.5%;
+    height: 100%;
+}
+
+body {
+    height: 100%;
+    font-family: @font-primary;
+    padding-top: 60px;
+    @media (min-width: @screen-sm-min) { padding-top: 110px; }
+}
+
+*::selection {
+    background: rgba(0,0,0,0.5);
+    color: #fff;
+}
+*::-moz-selection {
+    background: rgba(0,0,0,0.5);
+    color: #fff;
+}
+
+label {
+    font-weight: normal;
+}
+
+main {
+    padding-bottom: 75px;
+    &.index {
+        padding: 0;
+    }
+}
+
+a, button, .btn {
+    outline: 0;
+    &:hover, &:active, &:focus {
+        outline: 0 !important;
+    }
+}
+
+.container, .container-fluid {
+    min-width: 320px;
+}
+
+.content-wrap {
+    height: 100%;
+}
+
+.font-primary {
+    font-family: @font-primary;
+}
+
+.numbers-font {
+    font-family: @font-numbers;
+}
+
+// Use these mixins to transform colors from hex to rgba
+.transparent-bg(@color, @alpha) {
+    background: rgba( red(@color), green(@color), blue(@color), @alpha);
+}
+
+.transparent-text(@color, @alpha) {
+    color: rgba( red(@color), green(@color), blue(@color), @alpha);
+}
+
+.transparent-border(@color, @alpha) {
+    border-color: rgba( red(@color), green(@color), blue(@color), @alpha);
+}
+
+.btn {
+    border-radius: 0;
+    //border: 1px solid transparent;
+
+    &-boxed {
+        border: 1px solid @border-color;
+        background: none;
+        color: @text-color;
+        &:hover {
+            background: @brand-primary;
+            border-color: @brand-primary;
+            color: #fff;
+        }
+    }
+}
+
+.btn-primary {
+    border-color: transparent;
+    &:hover, &:active, &:focus {
+        border-color: transparent;
+    }
+}
+
+.form-control {
+    border-radius: 0;
+}
+
+.uppercase {
+    text-transform: uppercase;
+}
+
+.breadcrumb-wrap {
+    margin-top: 15px;
+    .breadcrumb {
+        font-size: 0.9em;
+        border-radius: 0;
+        background: #fff;
+        padding: 10px 0px;
+    }
+}
+
+.form-group {
+    position: relative;
+}
+
+// Bootstrap select customization
+.bootstrap-select {
+    button {
+        position: relative;
+        .caret {
+            border: 0;
+            display: block;
+            position: absolute;
+            margin: 0;
+            height: 32px;
+            width: 32px;
+            top: 2px !important;
+            right: 0 !important;
+            &:before {
+                font-family: "FontAwesome";
+                speak: none;
+                vertical-align: middle;
+                line-height: 1;
+                -webkit-font-smoothing: antialiased;
+                -moz-osx-font-smoothing: grayscale;
+                border: 0;
+                content: "\f107"; // arrow-down
+                display: inline-block;
+                width: auto;
+                color: @gray;
+                top: 8px;
+                left: 10px;
+                position: absolute;
+            }
+        }
+    }
+    .btn:focus {
+        outline: 0 !important;
+    }
+}
+
+.message-wrapper {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    z-index: 10000;
+    .alert {
+        border-radius: 0;
+        margin: 0;
+    }
+}
+
+.alert-dismissable .close, .alert-dismissible .close {
+    opacity: 0.8;
+}
+
+.scroll-top-btn {
+    opacity: 0;
+    background: rgba(0, 0, 0, 0.35);
+    height: 2.5em;
+    width: 2.5em;
+    position: fixed;
+    bottom: 5px;
+    right: 5px;
+    color: #fff;
+    text-align: center;
+    .transition(opacity 0.25s);
+    z-index: 10;
+    border-radius: 50%;
+
+    i {
+        line-height: 2.4em;
+        font-size: 1em;
+        height: 2.5em;
+        width: 2.5em;
+    }
+
+    @media (min-width: @screen-md-min) {
+        &.visible {
+            opacity: 0.65;
+            &:hover, &:active, &:focus {
+                opacity: 1;
+                background: @brand-primary;
+                color: #fff;
+            }
+        }
+    }
+
+}
+
+.nav-tabs {
+    border-bottom: 4px solid @brand-primary;
+
+    > li {
+        margin: 0px;
+
+        > a {
+            border: 0 !important;
+            border-radius: 0;
+            background-color: darken(@brand-primary, 15%);
+            color: rgba(255,255,255,0.7);
+            &:hover, &:focus {
+                background-color: darken(@brand-primary, 15%);
+                color: #fff;
+            }
+
+            i { margin-right: 1rem; }
+        }
+
+        &.active > a,
+        &.active > a:hover,
+        &.active > a:focus {
+            color: #fff;
+            background-color: @brand-primary;
+            border: 0;
+            cursor: default;
+        }
+    }
+
+}
+
+.tab-content {
+    background: @brand-gray-light;
+    padding: 25px;
+}
+
+.input-group-addon {
+    border-radius: 0;
+}
+
+iframe {
+    width: 100%;
+    height: auto;
+}
+
+.back-to-home-btn {
+    display: block;
+    margin-top: 20px;
+    margin-bottom: 50px;
+}
