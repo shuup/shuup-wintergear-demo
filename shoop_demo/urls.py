@@ -10,12 +10,8 @@ from django.conf import settings
 from django.conf.urls import patterns, include, url
 from django.conf.urls.static import static
 from django.contrib import admin
-from django_jinja import views
 import shoop.admin.urls
 import shoop.front.urls
-
-
-handler404 = views.PageNotFound.as_view()
 
 
 def _ns_url(regex, urls, name):
