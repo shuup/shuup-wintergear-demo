@@ -4,14 +4,18 @@
 {% block content_title %}{{ self.title() }}{% endblock %}
 
 {% block breadcrumb %}
-    <ol class="breadcrumb">
-        <li><a href="/">{% trans %}Home{% endtrans %}</a></li>
-        <li class="active">{{ self.title() }}</li>
-    </ol>
+    <div class="container breadcrumb-wrap">
+        <ol class="breadcrumb">
+            <li><a href="/">{% trans %}Home{% endtrans %}</a></li>
+            <li class="active">{{ self.title() }}</li>
+        </ol>
+    </div>
 {% endblock %}
 
 {% block content %}
-    <p class="lead"><i class="fa fa-info-circle text-info"></i> {% trans %}Unfortunately the page you were looking for does not exist.{% endtrans %}</p>
-    <hr>
-    <a href="/"><i class="fa fa-angle-double-left"></i> {% trans %}Back to Homepage{% endtrans %}</a>
+    <div class="container">
+        <p class="lead"><i class="fa fa-info-circle text-info"></i> {% trans %}Unfortunately the page you were looking for does not exist.{% endtrans %}</p>
+        <hr>
+        <a href="/"><i class="fa fa-angle-double-left"></i> {% trans %}Back to Homepage{% endtrans %}</a>
+    </div>
 {% endblock %}
