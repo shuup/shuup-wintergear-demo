@@ -19,7 +19,6 @@ def _ns_url(regex, urls, name):
 
 
 _URLS = [
-    url(r'^admin/', include(admin.site.urls)),
     _ns_url(r'^sa/', shoop.admin.urls, 'shoop_admin'),
     _ns_url(r'^', shoop.front.urls, 'shoop'),
 ]
