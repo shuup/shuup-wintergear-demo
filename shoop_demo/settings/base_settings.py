@@ -26,7 +26,6 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     # wintergear
     'shoop_demo',
-    'shoop.themes.default_theme',
     'shoop.themes.classic_gray',
     'wintergear',
     'wintergear_demo_content',
@@ -43,11 +42,12 @@ INSTALLED_APPS = (
     'shoop.front.apps.simple_search',
     'shoop.notify',
     'shoop.simple_cms',
-    'shoop.simple_pricing',
+    'shoop.customer_group_pricing',
+    'shoop.campaigns',
+    'shoop.order_printouts',
     'shoop.simple_supplier',
     'shoop.testing',
     'shoop.xtheme',
-    'shoop.discount_pricing',
     # external
     'bootstrap3',
     'registration',
@@ -147,7 +147,7 @@ SHOOP_PAYMENT_MODULE_IMPLEMENTATIONS = {
 
 SHOOP_BASKET_VIEW_SPEC = "shoop_demo.views.basket:WintergearBasketView"
 
-SHOOP_PRICING_MODULE = "discount_pricing"
+SHOOP_PRICING_MODULE = "customer_group_pricing"
 
 DEMO_CREDENTIALS = "admin / admin"
 
