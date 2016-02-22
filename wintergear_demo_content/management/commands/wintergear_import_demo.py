@@ -12,12 +12,12 @@ from django.contrib.auth.models import User
 from django.core.management.base import BaseCommand
 from django.db.transaction import atomic
 from django.utils import translation
-from shoop.core.models import Shop, TaxClass, PaymentMethod
-from shoop.core.models.methods import ShippingMethod
-from shoop.core.models.products import ProductType
-from shoop.core.models.shops import ShopStatus
-from shoop.core.models.units import SalesUnit
+from shoop.core.models import (
+    PaymentMethod, ProductType, SalesUnit, ShippingMethod,
+    Shop, ShopStatus, TaxClass
+)
 from shoop.testing.factories import create_default_order_statuses, get_default_supplier
+from shoop.xtheme import set_current_theme
 from django.core.management.commands.migrate import Command as MigrateCommand
 
 from wintergear_demo_content.importer import import_categories, import_products, import_cms_content
@@ -71,3 +71,4 @@ class Command(BaseCommand):
         translation.activate("en")
         self.seed_default()
         self.import_data()
+        set_current_theme("wintergear")

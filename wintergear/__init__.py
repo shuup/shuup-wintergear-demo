@@ -9,7 +9,7 @@ from django.conf import settings
 from django.utils.encoding import force_text
 
 from shoop.apps import AppConfig
-from shoop.xtheme.theme import Theme
+from shoop.xtheme import Theme
 
 
 class WintergearTheme(Theme):

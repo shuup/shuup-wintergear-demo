@@ -14,7 +14,6 @@ from shoop.core.models import (
     Product, ProductType, ShopProduct,
     ProductMedia, ProductMediaKind,
 )
-from shoop.discount_pricing.models import DiscountedProductPrice
 from shoop.simple_cms.models import Page
 from shoop.testing.factories import get_default_supplier
 from shoop.utils.filer import filer_image_from_data
@@ -148,10 +147,6 @@ class ProductImporter(object):
 
         if category_identifier:
             self._attach_category(product, shop_product, category_identifier)
-
-        if data.get("discount_price"):
-            discount_price = parse_decimal_string(data.get("discount_price", "9.99"))
-            DiscountedProductPrice.objects.create(product=product, shop=self.shop, price_value=discount_price)
 
         shop_product.save()
         product.save()
