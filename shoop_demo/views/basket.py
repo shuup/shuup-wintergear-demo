@@ -5,13 +5,13 @@
 # This source code is licensed under the AGPLv3 license found in the
 # LICENSE file in the root directory of this source tree.
 from django import forms
-from shoop.core.models import Address
+from shoop.core.models import MutableAddress
 from shoop.front.views.basket import DefaultBasketView
 
 
 class AddressForm(forms.ModelForm):
     class Meta:
-        model = Address
+        model = MutableAddress
         fields = (
             "name", "phone", "email", "street",
             "street2", "postal_code", "city",
