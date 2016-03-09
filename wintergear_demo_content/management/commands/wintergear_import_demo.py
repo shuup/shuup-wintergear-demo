@@ -30,7 +30,7 @@ class Command(BaseCommand):
         migrator.handle(database="default", verbosity=1, noinput=True, app_label=None, migration_name=None)
 
         if not Shop.objects.exists():
-            Shop.objects.create(name="Wintergear", identifier="wintergear", status=ShopStatus.ENABLED)
+            Shop.objects.create(name="Wintergear", identifier="default", status=ShopStatus.ENABLED)
             try:
                 tax_class = TaxClass.objects.create(identifier="default", tax_rate=0)
             except:
