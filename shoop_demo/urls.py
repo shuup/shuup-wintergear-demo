@@ -7,7 +7,7 @@
 import os
 
 from django.conf import settings
-from django.conf.urls import patterns, include, url
+from django.conf.urls import patterns, include, re_path
 from django.conf.urls.static import static
 from django.contrib import admin
 import shoop.admin.urls
@@ -15,22 +15,22 @@ import shoop.front.urls
 
 
 def _ns_url(regex, urls, name):
-    return url(regex, include(urls, namespace=name, app_name=name))
+    return re_path(regex, include(urls, namespace=name, app_name=name))
 
 
 _URLS = [
-    _ns_url(r'^sa/', shoop.admin.urls, 'shoop_admin'),
-    _ns_url(r'^', shoop.front.urls, 'shoop'),
+    _ns_url(r"^sa/", shoop.admin.urls, "shoop_admin"),
+    _ns_url(r"^", shoop.front.urls, "shoop"),
 ]
 
 _STATIC_DIRS = [
-    'static_src',
-    'bower_components',
+    "static_src",
+    "bower_components",
 ]
 
 _STATIC_MAP = [
     (settings.MEDIA_URL, settings.MEDIA_ROOT),
-] + [('/' + x + '/', os.path.join(settings.BASE_DIR, x)) for x in _STATIC_DIRS]
+] + [("/" + x + "/", os.path.join(settings.BASE_DIR, x)) for x in _STATIC_DIRS]
 
 
 def _get_statics():
@@ -42,4 +42,4 @@ def _get_statics():
     return result
 
 
-urlpatterns = patterns('', *_URLS) + _get_statics()
+urlpatterns = patterns("", *_URLS) + _get_statics()
